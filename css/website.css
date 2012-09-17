@@ -667,24 +667,26 @@ section#projets .wrapper_hs { background-image:url('../images/keyboard.png'); }
   font-size:18px;
 }
 section#apropos .wrapper_hs { background-image:url('../images/mouse.png'); }
-section#apropos .content_special {
+section#apropos .container h3 { margin-bottom:50px; }
+section#apropos .container .content_unique { margin-bottom:0px; }
+section#apropos .container .content_unique .content_special {
   position:relative;
-  height:312px;
+  height:370px;
 }
-section#apropos .content_special .description_info {
-  height:212px;
+section#apropos .container .content_unique .content_special .description_info {
+  height:270px;
   position:absolute;
   opacity:0;
 }
-section#apropos .content_special .description_info:nth-child(1) {
+section#apropos .container .content_unique .content_special .description_info:nth-child(1) {
   left:0;
   top:0;
 }
-section#apropos .content_special .description_info:nth-child(2) {
+section#apropos .container .content_unique .content_special .description_info:nth-child(2) {
   left:350px;
   top:0;
 }
-section#apropos .content_special .description_info:nth-child(3) {
+section#apropos .container .content_unique .content_special .description_info:nth-child(3) {
   left:700px;
   top:0;
 }
@@ -712,7 +714,7 @@ section#contact .wrapper_container {
   background:-ms-radial-gradient(center,ellipse cover,#ffffff 0%,#e3e3e2 100%);
   background:radial-gradient(ellipse at center,#ffffff 0%,#e3e3e2 100%);
   filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff',endColorstr='#e3e3e2',GradientType=1);
-  height:500px;
+  height:400px;
   position:relative;
 }
 section#contact .wrapper_container .container {
@@ -721,7 +723,7 @@ section#contact .wrapper_container .container {
   padding:0;
 }
 section#contact .wrapper_container .container #contact_panel {
-  padding:20px 0;
+  padding:50px 0;
   position:relative;
   display:table;
 }
