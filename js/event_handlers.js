@@ -45,9 +45,6 @@ $(function(){
 		var reservedSpace = 2*paddingVContainer + $("#apropos h3").outerHeight(true) + $("#menu_top").outerHeight();
 		var minHeightWindow = minHeightPanelsGroup + reservedSpace;
 		
-		console.log("menu_top" + $("#menu_top").outerHeight());
-		console.log("reservedSpace" + reservedSpace);
-		
 		if(window.innerHeight > minHeightWindow){
 			
 			var spaceAvailable = window.innerHeight - reservedSpace
@@ -121,44 +118,50 @@ $(function(){
 
 
 	// =========== ------------- ____________________ EFFET HIGHLIGHT ____________________ ------------- ===========
-
-	// =========== ------------- Sur le menu du haut
-	var  lightColor_1 = "rgba(255,255,255,0.9)";
+	var lightColor_1 = "rgba(255,255,255,0.9)";
 	var originalBG_1 = "rgba(255,255,255,0.1)";
-	// On lie l'evenement au parent car les elements auquel on souhaite attribuer l'effet changent au cours de la navigation'
-	$('#menu_top #menu_links ul').on("mousemove" ,"li a:not('.selected')",function(e) {
-		highlight(e, this, originalBG_1, lightColor_1 ,1, 70);		
-	})
-	$('#menu_top #menu_links ul').on("mouseleave", "li a:not('.selected')",function() {
-		$(this).css({ background: "transparent" });
-	});
-	
-	// =========== ------------- Sur le menu vitrine
 	var lightColor_2 = "rgba(255,255,255,1)";
 	var originalBG_2 = "rgba(227,227,226,1)";
-	$('#menu_display ul li a').mousemove(function(e) {
-		highlight(e, this, originalBG_2, lightColor_2 ,75, 150);		
-	}).mouseleave(function() {
-		$(this).css({ background: originalBG_2 });
-	});
+
+	if($(".no-cssgradients")[0] == undefined){
+		// =========== ------------- Sur le menu du haut
+		// On lie l'evenement au parent car les elements auquel on souhaite attribuer l'effet changent au cours de la navigation'
+		$('#menu_top #menu_links ul').on("mousemove" ,"li a:not('.selected')",function(e) {
+			highlight(e, this, originalBG_1, lightColor_1 ,1, 70);		
+		})
+		$('#menu_top #menu_links ul').on("mouseleave", "li a:not('.selected')",function() {
+			$(this).css({ background: "transparent" });
+		});
+		
+		// =========== ------------- Sur le menu vitrine
+		$('#menu_display ul li a').mousemove(function(e) {
+			highlight(e, this, originalBG_2, lightColor_2 ,75, 150);		
+		}).mouseleave(function() {
+			$(this).css({ background: originalBG_2 });
+		});
+	}
 	
 	// =========== ------------- ____________________ NAVIGATION ENTRE PAGES ==> SCROLL ____________________ ------------- ===========
 	// =========== ------------- Sur le menu du haut
 	$('#menu_top #menu_links ul').on("click", "li a:not('.selected')",function(event) {
 		event.preventDefault();
 		var panelName = $(this).attr("href").substring(1); //On enleve le #
-		var panelSelector = "#" + panelName;
-		var offset = $(panelSelector).offset().top + 5 + "px";
-		$(window).scrollTo( offset , 1500, {easing:'easeInBack'});
+		if(panelName == "accueil"){
+			var offset = 0 + "px";
+		} else {
+			var panelSelector = "#" + panelName + " .wrapper_container";
+			var offset = $(panelSelector).offset().top - 30 + "px";
+		}
+		$("html,body").animate({ scrollTop: offset }, 1500 , "easeInBack");
 	});
 	
 	// =========== ------------- Sur le menu vitrine
 	$('#menu_display ul ').on("click", "li a",function(event) {
 		event.preventDefault();
 		var panelName = $(this).attr("href").substring(1); //On enleve le #
-		var panelSelector = "#" + panelName;
-		var offset = $(panelSelector).offset().top + 5 + "px";
-		$(window).scrollTo( offset , 1500, {easing:'easeInBack'});
+		var panelSelector = "#" + panelName + " .wrapper_container";
+		var offset = $(panelSelector).offset().top + 30 + "px";
+		$("html,body").animate({ scrollTop: offset }, 1500 , "easeInBack");
 	});
 	
 	
@@ -195,8 +198,6 @@ $(function(){
 	
 	// =========== ------------- Transition Projets/apropos
 	$('section#apropos').waypoint(function(event, direction) {
-		console.log("window waypoint apropos" + $(window).scrollTop());
-		console.log("waypoint apropos" + $('section#apropos').offset().top)
 		if (direction === 'down') {
 			$(selector + ".selected").removeClass("selected");
 			$(selector + "[href=#apropos]").removeAttr("style").addClass("selected");
@@ -261,7 +262,6 @@ $(function(){
 			left: posLeft,
 			opacity: 99
 		},500);
-		console.log("mouseover");
 	})
 
 	// =========== Masquage de l'infobulle'
